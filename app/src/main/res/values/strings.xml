@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">SnooLite</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="info">Info</string>
+    <string name="refresh">Refresh</string>
+    <string name="post_image">Post Image</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="about_text_1">A little Reddit demo app</string>
+</resources>

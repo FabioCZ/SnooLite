@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="post"
+            type="com.gottlicher.snoolite.api.RedditPost" />
+    </data>
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/off_white">
+
+            <TextView
+                    score="@{post.score}"
+                    android:layout_width="46dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_score"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:textColor="@android:color/holo_orange_dark"/>
+            <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    app:srcCompat="@drawable/ic_photo_black_24dp"
+                    android:id="@+id/image_post"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:contentDescription="@string/post_image"
+                    android:tint="@color/grey1"/>
+            <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:id="@+id/guideline2"
+                                                        android:orientation="horizontal"
+                                                        app:layout_constraintGuide_percent="0.5"/>
+            <TextView
+                    android:text="@{post.title}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_title" app:layout_constraintEnd_toStartOf="@+id/image_post"
+                    android:layout_marginEnd="8dp" android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toEndOf="@+id/text_score" android:layout_marginBottom="4dp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0"/>
+            <TextView
+                    subreddit="@{post.subreddit}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_sub" app:layout_constraintStart_toEndOf="@+id/text_score"
+                    app:layout_constraintTop_toTopOf="@+id/guideline2"
+                    android:layout_marginStart="8dp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:layout_marginTop="4dp" android:textColor="@color/colorPrimaryDark"/>
+            <TextView
+                    author="@{post.author}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_author"
+                    android:layout_marginTop="4dp" app:layout_constraintTop_toTopOf="@+id/guideline2"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    app:layout_constraintStart_toEndOf="@+id/text_sub"
+                    android:layout_marginStart="8dp" android:textColor="@color/colorAccent"/>
+            <TextView
+                    daysAgo="@{post.createdUtc}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_age"
+                    android:layout_marginTop="4dp" app:layout_constraintTop_toTopOf="@+id/guideline2"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    app:layout_constraintStart_toEndOf="@+id/text_author" android:layout_marginStart="8dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

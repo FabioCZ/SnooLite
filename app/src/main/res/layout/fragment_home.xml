@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        <variable
+            name="model"
+            type="com.gottlicher.snoolite.home.HomeViewModel" />
+    </data>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/off_white"
+        tools:context=".home.HomeFragment">
+    
+        <me.saket.inboxrecyclerview.InboxRecyclerView
+                android:id="@+id/posts_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="88dp"
+                android:paddingTop="8dp" />
+
+        <me.saket.inboxrecyclerview.page.ExpandablePageLayout
+                android:id="@+id/post_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+    
+        <com.google.android.material.bottomappbar.BottomAppBar
+                android:id="@+id/nav_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+            android:backgroundTint="@color/colorPrimaryDark">
+            <ImageButton
+                    android:id="@+id/nav_bar_refresh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_loading_black_24dp"
+                    android:tint="@android:color/white"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/refresh"
+                    android:layout_gravity="center|start"
+                    android:padding="16dp"/>
+            <ImageButton
+                    android:id="@+id/nav_bar_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_info_outline_black_24dp"
+                    android:tint="@android:color/white"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/info"
+                    android:layout_gravity="center|end"
+                    android:padding="16dp"/>
+        </com.google.android.material.bottomappbar.BottomAppBar>
+    
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/main_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_anchor="@id/nav_bar"
+                android:src="@drawable/ic_exit_to_app_black_24dp"
+                android:tint="@android:color/white"/>
+    
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
