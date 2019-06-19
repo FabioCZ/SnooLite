@@ -2,8 +2,14 @@ package com.gottlicher.snoolite.utils
 
 import android.annotation.SuppressLint
 import android.util.Log
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
+import com.gottlicher.snoolite.R
+import com.gottlicher.snoolite.api.Preview
+import com.gottlicher.snoolite.api.RedditPost
+import org.jetbrains.anko.imageResource
 import java.text.DecimalFormat
 
 
@@ -51,4 +57,16 @@ public fun setDaysAgo (view: TextView, timeUtc: Long) {
 
     val ageDays = ageHours / 24
         view.text = "${ageDays}d"
+}
+
+@BindingAdapter("urlSrc")
+public fun setUrlSrc (view: ImageView, post:RedditPost) {
+    if (post.selfText != null && post.selfText!!.isNotEmpty()) {
+        view.imageResource = R.drawable.ic_text_fields_grey_24dp
+    } else if (post.preview == null) {
+        view.imageResource = R.drawable.ic_link_grey_24dp
+    } else {
+        var previewUri = post.preview!!.images[0].resolutions.last { x -> x.width < 300 }.url
+        Glide.with(view).load(previewUri).into(view)
+    }
 }

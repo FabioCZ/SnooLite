@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gottlicher.snoolite.R
+import com.gottlicher.snoolite.api.DataState
 import com.gottlicher.snoolite.api.RedditPost
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -34,8 +35,7 @@ class HomeFragment : Fragment() {
         posts_rv.layoutManager = LinearLayoutManager(this.context)
         val adapter = PostsAdapater()
         vm.postsLiveData.observe(this, Observer<PagedList<RedditPost>> { t -> adapter.submitList(t) })
+        vm.stateLiveData.observe(this, Observer<DataState> { t -> adapter.setDataState(t)})
         posts_rv.adapter = adapter
     }
-
-
 }

@@ -10,7 +10,7 @@ import java.lang.reflect.Type
 class UriTypeAdapter : JsonDeserializer<Uri> {
     override fun deserialize(json: JsonElement?, typeOfT: Type?, context: JsonDeserializationContext?): Uri {
         val strVal = json?.asString
-        return Uri.parse(strVal)
+        return Uri.parse(strVal?.replace("amp;",""))
     }
 
 }

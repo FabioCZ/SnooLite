@@ -6,51 +6,79 @@ import androidx.paging.PageKeyedDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
-public class PostsDataSource (val redditApiService: RedditApiService, val subReddit: String) : PageKeyedDataSource<Int, RedditPost> () {
+enum class DataState { NONE, LOADING, LOADED, ERROR }
 
-    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, RedditPost>) {
+public class PostsDataSource (val redditApiService: RedditApiService, val subReddit: String) : PageKeyedDataSource<String, RedditPost> () {
+
+    val loadingLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    val stateLiveData: MutableLiveData<DataState> = MutableLiveData()
+
+
+    override fun loadInitial(params: LoadInitialParams<String>, callback: LoadInitialCallback<String, RedditPost>) {
         GlobalScope.launch(Dispatchers.IO) {
-            val response = redditApiService.getPosts(subReddit)
-            if (response.isSuccessful) {
-                val posts = response.body()!!.data.children.map { it.data }
-                callback.onResult(posts,null, 2)
-            } else {
-                //TODO error handling
+            try {
+                stateLiveData.postValue(DataState.LOADING)
+                val response = redditApiService.getPosts(subReddit, null, null)
+                stateLiveData.postValue(DataState.LOADED)
+                if (response.isSuccessful) {
+                    val posts = response.body()!!.data.children.map { it.data }
+                    callback.onResult(filterNsfw(posts), null, posts.last().name)
+                } else {
+                    stateLiveData.postValue(DataState.ERROR)
+                }
+            } catch (e:Exception) {
+                stateLiveData.postValue(DataState.ERROR)
             }
         }
     }
 
-    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, RedditPost>) {
+    override fun loadAfter(params: LoadParams<String>, callback: LoadCallback<String, RedditPost>) {
         GlobalScope.launch(Dispatchers.IO) {
-            val response = redditApiService.getPosts(subReddit)
-            if (response.isSuccessful) {
-                val posts = response.body()!!.data.children.map { it.data }
-                callback.onResult(posts,params.key + 1)
-            } else {
-                //TODO error handling
+            try{
+                stateLiveData.postValue(DataState.LOADING)
+                val response = redditApiService.getPosts(subReddit, null, params.key)
+                stateLiveData.postValue(DataState.LOADED)
+                if (response.isSuccessful) {
+                    val posts = response.body()!!.data.children.map { it.data }
+                    callback.onResult(filterNsfw(posts), posts.last().name)
+                } else {
+                    stateLiveData.postValue(DataState.ERROR)
+                }
+            } catch (e:Exception) {
+                stateLiveData.postValue(DataState.ERROR)
             }
         }
     }
 
-    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, RedditPost>) {
+    override fun loadBefore(params: LoadParams<String>, callback: LoadCallback<String, RedditPost>) {
         GlobalScope.launch(Dispatchers.IO) {
-            val response = redditApiService.getPosts(subReddit)
-            if (response.isSuccessful) {
-                val posts = response.body()!!.data.children.map { it.data }
-                callback.onResult(posts,params.key - 1)
-            } else {
-                //TODO error handling
+            try{
+                stateLiveData.postValue(DataState.LOADING)
+                val response = redditApiService.getPosts(subReddit, params.key, null)
+                stateLiveData.postValue(DataState.LOADED)
+                if (response.isSuccessful) {
+                    val posts = response.body()!!.data.children.map { it.data }
+                    callback.onResult(filterNsfw(posts),posts.first().name)
+                } else {
+                    stateLiveData.postValue(DataState.ERROR)
+                }
+            } catch (e:Exception) {
+                stateLiveData.postValue(DataState.ERROR)
             }
         }
     }
 
+    private fun filterNsfw(posts:List<RedditPost>): List<RedditPost> {
+        return posts.filter { !it.over18 }
+    }
 }
 
-public class PostsDataFactory (val redditApiService: RedditApiService, val subReddit: String) : DataSource.Factory<Int, RedditPost> () {
+public class PostsDataFactory (val redditApiService: RedditApiService, val subReddit: String) : DataSource.Factory<String, RedditPost> () {
     public val mutableLiveData = MutableLiveData<PostsDataSource> ()
 
-    override fun create(): DataSource<Int, RedditPost> {
+    override fun create(): DataSource<String, RedditPost> {
         val source = PostsDataSource(redditApiService, subReddit)
         mutableLiveData.postValue(source)
         return source

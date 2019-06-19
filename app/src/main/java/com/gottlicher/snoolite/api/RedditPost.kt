@@ -17,17 +17,18 @@ data class RedditPost (
     var createdUtc:Long,
     var permalink:String,
     var over18:Boolean,
-    var domain:String,
+    var domain:String?,
     var gilded:Long,
-    var selfText:String,
+    var selfText:String?,
     var thumbnail:String,
     var preview:Preview?,
-    var subreddit:String
+    var subreddit:String,
+    var name:String
 )
 
 class RedditPostsDiffer : DiffUtil.ItemCallback<RedditPost>() {
-    override fun areItemsTheSame(oldItem: RedditPost, newItem: RedditPost): Boolean = oldItem.url == newItem.url
-    override fun areContentsTheSame(oldItem: RedditPost, newItem: RedditPost): Boolean = oldItem.url == newItem.url
+    override fun areItemsTheSame(oldItem: RedditPost, newItem: RedditPost): Boolean = oldItem.name == newItem.name
+    override fun areContentsTheSame(oldItem: RedditPost, newItem: RedditPost): Boolean = oldItem.name == newItem.name
 }
 
 data class Preview (

@@ -3,7 +3,8 @@
     <color name="colorPrimaryLight">#B8F3FF</color>
     <color name="colorPrimary">#8AC6D0</color>
     <color name="colorPrimaryDark">#0B3948</color>
-    <color name="colorAccent">#554971</color>
+    <color name="colorAccent">#2708A0</color>
     <color name="grey1">#77878B</color>
     <color name="off_white">#ECF7F8</color>
+    <color name="upvote_orance">#E4572E</color>
 </resources>
