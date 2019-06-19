@@ -10,6 +10,7 @@ import com.gottlicher.snoolite.R
 import com.gottlicher.snoolite.api.Preview
 import com.gottlicher.snoolite.api.RedditPost
 import org.jetbrains.anko.imageResource
+import java.lang.Exception
 import java.text.DecimalFormat
 
 
@@ -66,7 +67,13 @@ public fun setUrlSrc (view: ImageView, post:RedditPost) {
     } else if (post.preview == null) {
         view.imageResource = R.drawable.ic_link_grey_24dp
     } else {
-        var previewUri = post.preview!!.images[0].resolutions.last { x -> x.width < 300 }.url
-        Glide.with(view).load(previewUri).into(view)
+        try {
+            val previewUri = post.preview!!.images[0].resolutions.lastOrNull { x -> x.width < 300 }?.url
+            if (previewUri != null) {
+                Glide.with(view).load(previewUri).into(view)
+            }
+        } catch (e:Exception) {
+            //no op
+        }
     }
 }
