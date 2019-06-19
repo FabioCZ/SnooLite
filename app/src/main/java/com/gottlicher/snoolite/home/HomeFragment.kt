@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.gottlicher.snoolite.R
 import com.gottlicher.snoolite.api.DataState
 import com.gottlicher.snoolite.api.RedditPost
+import com.gottlicher.snoolite.databinding.FragmentHomeBinding
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -26,7 +27,10 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        val binding = FragmentHomeBinding.inflate(LayoutInflater.from(this.context),container, false)
+        binding.loading = vm.stateLiveData
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,7 +39,6 @@ class HomeFragment : Fragment() {
         posts_rv.layoutManager = LinearLayoutManager(this.context)
         val adapter = PostsAdapater()
         vm.postsLiveData.observe(this, Observer<PagedList<RedditPost>> { t -> adapter.submitList(t) })
-        vm.stateLiveData.observe(this, Observer<DataState> { t -> adapter.setDataState(t)})
         posts_rv.adapter = adapter
     }
 }

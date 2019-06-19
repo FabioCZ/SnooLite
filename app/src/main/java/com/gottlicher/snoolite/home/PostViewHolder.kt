@@ -32,14 +32,3 @@ class PostViewHolder (val item: ViewPostBinding) : RecyclerView.ViewHolder(item.
         }
     }
 }
-
-class LoadingViewHolder (val item: View) : RecyclerView.ViewHolder (item) {
-
-    private val loadingbar:ProgressBar = item.findViewById(R.id.loading_bar)
-    private val errorText:TextView = item.findViewById(R.id.error_text)
-
-    fun bind (state: DataState) {
-        errorText.visibility = if (state == DataState.ERROR) View.VISIBLE else View.GONE
-        loadingbar.visibility = if (state == DataState.LOADING) View.VISIBLE else View.GONE
-    }
-}
