@@ -13,7 +13,8 @@ import com.gottlicher.snoolite.api.RedditPost
 
 class HomeViewModel(val redditApiService: RedditApiService) : ViewModel() {
 
-    val currentSub: ObservableField<String> = ObservableField("androiddev")
+    val DEFAULT_SUB = "all"
+    val currentSub: ObservableField<String> = ObservableField(DEFAULT_SUB)
     lateinit var postsLiveData: LiveData<PagedList<RedditPost>>
     lateinit var stateLiveData: LiveData<DataState>
     var initialized = false;
