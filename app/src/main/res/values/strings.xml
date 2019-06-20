@@ -1,12 +1,21 @@
 <resources>
     <string name="app_name">SnooLite</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="info">Info</string>
     <string name="refresh">Refresh</string>
     <string name="post_image">Post Image</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="about_text_1">A little Reddit demo app</string>
+    <string name="about_text_1">A a simple demo app for Reddit\n\nBuilt with Kotlin and the following:\n • Navigation Framework\n • ViewModels and Live Data\n • Paging Library\n • Koin Dependency Injection\n • Glide for image loading\n • Retrofit for network requests\n • Gson for deserialization\n • .... and more</string>
     <string name="loading_error">Error loading posts :(</string>
+
+    <string name="go_to_sub">Go to subreddit</string>
+    <string name="r_slash_hint">e.g. androiddev</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="browsing_r_pl">Browsing r/%1$s</string>
+    <string name="back">Back</string>
+    <string name="comments">Comments</string>
+    <string name="about_text_2">Built by Fabio Gottlicher\nTo see the source code, visit <a href="http://www.github.com/FabioCZ/SnooLite">github.com/FabioCZ/SnooLite</a></string>
+    <string name="about">About</string>
 </resources>

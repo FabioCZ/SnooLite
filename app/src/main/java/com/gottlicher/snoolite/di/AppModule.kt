@@ -6,8 +6,10 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.gottlicher.snoolite.api.RedditApiService
+import com.gottlicher.snoolite.api.RedditPermalink
 import com.gottlicher.snoolite.home.HomeViewModel
-import com.gottlicher.snoolite.utils.UriTypeAdapter
+import com.gottlicher.snoolite.utils.RedditListingDeserializer
+import com.gottlicher.snoolite.utils.UriTypeDeserializer
 import okhttp3.OkHttpClient
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
@@ -31,7 +33,8 @@ object AppModule  {
 
     private fun createGson() : Gson {
         return GsonBuilder()
-            .registerTypeAdapter(object: TypeToken<Uri>(){}.type, UriTypeAdapter())
+            .registerTypeAdapter(object: TypeToken<Uri>(){}.type, UriTypeDeserializer())
+            .registerTypeAdapter(object: TypeToken<RedditPermalink>(){}.type, RedditListingDeserializer())
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .create()
     }

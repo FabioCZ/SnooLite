@@ -1,5 +1,6 @@
 package com.gottlicher.snoolite.home
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
@@ -12,14 +13,12 @@ import com.gottlicher.snoolite.api.RedditPost
 
 class HomeViewModel(val redditApiService: RedditApiService) : ViewModel() {
 
-    lateinit var currentSub: LiveData<String>
+    val currentSub: ObservableField<String> = ObservableField("all")
     lateinit var postsLiveData: LiveData<PagedList<RedditPost>>
     lateinit var stateLiveData: LiveData<DataState>
-    init {
-        reInitLiveData()
-    }
-    private fun reInitLiveData() {
-        val factory = PostsDataFactory(redditApiService, "all")
+
+    fun initLiveData() {
+        val factory = PostsDataFactory(redditApiService, currentSub.get()!!)
 
         val config = PagedList.Config.Builder ()
             .setEnablePlaceholders(false)
@@ -31,5 +30,4 @@ class HomeViewModel(val redditApiService: RedditApiService) : ViewModel() {
         stateLiveData = Transformations.switchMap(factory.mutableLiveData) { it.stateLiveData }
 
     }
-
 }

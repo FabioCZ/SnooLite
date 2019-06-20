@@ -9,7 +9,19 @@
         <action android:id="@+id/action_homeFragment_to_postFragment" app:destination="@id/postFragment"
                 app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
                 app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+        <action
+            android:id="@+id/action_homeFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
     </fragment>
     <fragment android:id="@+id/postFragment" android:name="com.gottlicher.snoolite.post.PostFragment"
-              android:label="fragment_post" tools:layout="@layout/fragment_post"/>
+              android:label="fragment_post" tools:layout="@layout/fragment_post">
+        <argument
+            android:name="permalink"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.gottlicher.snoolite.about.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
 </navigation>
