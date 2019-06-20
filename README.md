@@ -7,3 +7,5 @@ A quick demo Android app for browsing reddit. Built with Kotlin, Android Jetpak 
 * Show a never ending list of hot posts from any subreddit, defaults to r/all
 * Show thumbnails for posts
 * Shows post's content (link/text/image) with top level comments
+
+![screenshot](screenshot.png)
