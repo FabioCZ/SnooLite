@@ -14,6 +14,7 @@ import com.gottlicher.snoolite.R
 import com.gottlicher.snoolite.api.EMPTY_POST
 import com.gottlicher.snoolite.api.RedditApiService
 import com.gottlicher.snoolite.databinding.FragmentPostBinding
+import com.gottlicher.snoolite.utils.UiLifecycleScope
 import kotlinx.android.synthetic.main.fragment_post.*
 import kotlinx.android.synthetic.main.fragment_post.toolbar
 import kotlinx.coroutines.Dispatchers
@@ -27,9 +28,10 @@ class PostFragment : Fragment() {
 
     val redditApiService:RedditApiService by inject()
     val args: PostFragmentArgs by navArgs()
+    private val uiScope = UiLifecycleScope()
 
     var isLoading:Boolean = false
-        set(value) { loading_container.visibility = if (value) View.VISIBLE else View.GONE }
+        set(value) { if (loading_container != null) loading_container.visibility = if (value) View.VISIBLE else View.GONE }
 
     lateinit var binding:FragmentPostBinding
     override fun onCreateView(
@@ -39,8 +41,13 @@ class PostFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentPostBinding.inflate(LayoutInflater.from(context), container, false)
         binding.post = EMPTY_POST
-        GlobalScope.launch (Dispatchers.Main) { loadPost(args.permalink) }
+        uiScope.launch(Dispatchers.Main) { loadPost(args.permalink) }
         return  binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        lifecycle.addObserver(uiScope)
     }
 
 
@@ -50,6 +57,7 @@ class PostFragment : Fragment() {
         toolbar.navigationIconResource = R.drawable.ic_arrow_back_white_24dp
         toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
     }
+
     suspend fun loadPost(permalink:String) {
         isLoading = true
         try {
