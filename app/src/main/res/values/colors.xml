@@ -7,4 +7,5 @@
     <color name="grey1">#77878B</color>
     <color name="off_white">#ECF7F8</color>
     <color name="upvote_orange">#E4572E</color>
+    <color name="black_50alpha">#80000000</color>
 </resources>

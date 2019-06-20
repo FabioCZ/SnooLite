@@ -5,7 +5,7 @@
     <string name="refresh">Refresh</string>
     <string name="post_image">Post Image</string>
 
-    <string name="about_text_1">A a simple demo app for Reddit\n\nBuilt with Kotlin and the following:\n • Navigation Framework\n • ViewModels and Live Data\n • Paging Library\n • Koin Dependency Injection\n • Glide for image loading\n • Retrofit for network requests\n • Gson for deserialization\n • .... and more</string>
+    <string name="about_text_1">A a simple demo app for Reddit\n\nBuilt with Kotlin and the following:\n • Navigation Framework\n • ViewModels and Live Data\n • Paging Library\n • Koin Dependency Injection\n • Glide for image loading\n • Retrofit for network requests\n • Gson for deserialization\n • Android Material components\n • .... and more</string>
     <string name="loading_error">Error loading posts :(</string>
 
     <string name="go_to_sub">Go to subreddit</string>

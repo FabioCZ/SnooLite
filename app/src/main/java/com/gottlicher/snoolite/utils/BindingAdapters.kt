@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.gottlicher.snoolite.R
 import com.gottlicher.snoolite.api.RedditPost
 import com.gottlicher.snoolite.api.RedditPostType
+import com.gottlicher.snoolite.api.isSelf
 import org.jetbrains.anko.imageResource
 import ru.noties.markwon.Markwon
 import java.lang.Exception
@@ -66,7 +67,7 @@ public fun setDaysAgo (view: TextView, timeUtc: Long) {
 
 @BindingAdapter("previewSrc")
 public fun setPreviewSrc (view: ImageView, post:RedditPost ) {
-    if (post.postHint == RedditPostType.SELF) {
+    if (post.isSelf) {
         view.imageResource = R.drawable.ic_text_fields_grey_24dp
     } else {
         try {
@@ -100,7 +101,7 @@ public fun setSelfText(view:TextView, post: RedditPost) {
     view.visibility = View.VISIBLE
 
     val mkdown = Markwon.create(view.context)
-    if (post.postHint == RedditPostType.SELF) {
+    if (post.isSelf) {
         mkdown.setMarkdown(view, post.selftext ?: "")
     } else {
         val linkMkdown = "[${post.url.toString()}](${post.url.toString()})"

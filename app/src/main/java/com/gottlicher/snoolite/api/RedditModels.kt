@@ -34,6 +34,8 @@ data class RedditPost (
     var postHint:RedditPostType
 )
 
+val RedditPost.isSelf: Boolean
+    get() = this.selftext?.isNotEmpty() ?: false || this.postHint == RedditPostType.SELF
 
 data class RedditPermalink (var post:RedditPost,
                             var comments:List<RedditComment>)

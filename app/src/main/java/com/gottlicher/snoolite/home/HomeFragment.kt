@@ -27,7 +27,6 @@ class HomeFragment : Fragment() {
 
     val vm:HomeViewModel by viewModel()
     lateinit var binding:FragmentHomeBinding
-    var postFragment: PostFragment? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,21 +39,27 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (!vm.initialized) {
+            vm.initLiveData()
+        }
         initContent()
         main_fab.onClick {
             val newSub = AsyncInputDialog(R.string.go_to_sub, R.string.r_slash_hint, R.string.ok, R.string.cancel).show(this@HomeFragment.context!!)
             if (newSub.dialogResult == DialogResult.POSITIVE) {
                 vm.currentSub.set(newSub.text)
+                vm.initLiveData()
                 initContent()
             }
         }
 
         nav_bar_about.onClick { findNavController().navigate(R.id.aboutFragment) }
-        nav_bar_refresh.onClick { initContent() }
+        nav_bar_refresh.onClick {
+            vm.initLiveData()
+            initContent()
+        }
     }
 
     private fun initContent(){
-        vm.initLiveData()
         binding.loading = vm.stateLiveData
         posts_rv.layoutManager = LinearLayoutManager(this.context)
         val adapter = PostsAdapater()

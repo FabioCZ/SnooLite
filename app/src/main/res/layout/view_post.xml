@@ -23,11 +23,10 @@
             android:foreground="?attr/selectableItemBackground">
 
             <TextView
-                tools:text="123k"
-                score="@{post.score}"
+                android:id="@+id/text_score"
                 android:layout_width="46dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/text_score"
+                score="@{post.score}"
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginBottom="8dp"
@@ -36,13 +35,14 @@
                 android:layout_marginStart="8dp"
                 android:gravity="center"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:textColor="@color/upvote_orange"/>
+                android:textColor="@color/upvote_orange"
+                tools:text="123k"/>
             <ImageView
-                previewSrc="@{post}"
+                android:id="@+id/image_post"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 app:srcCompat="@drawable/ic_photo_grey_24dp"
-                android:id="@+id/image_post"
+                previewSrc="@{post}"
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -70,9 +70,9 @@
 
             <TextView
                 android:id="@+id/text_sub"
-                subreddit="@{post.subreddit}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                subreddit="@{post.subreddit}"
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="16dp"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
@@ -83,10 +83,10 @@
 
             <TextView
                 android:id="@+id/text_author"
-                author="@{post.author}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                author="@{post.author}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                 android:textColor="@color/colorAccent"
                 app:layout_constraintStart_toEndOf="@+id/text_sub"
@@ -95,14 +95,29 @@
 
             <TextView
                 android:id="@+id/text_age"
-                daysAgo="@{post.createdUtc}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                daysAgo="@{post.createdUtc}"
                 android:layout_marginStart="8dp"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                 app:layout_constraintStart_toEndOf="@+id/text_author"
                 app:layout_constraintTop_toTopOf="@+id/text_author"
                 tools:text="1d" />
+
+            <TextView
+                android:id="@+id/textDomain"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/black_50alpha"
+                android:gravity="center"
+                android:text="@{post.domain}"
+                android:textColor="@color/off_white"
+                android:textSize="7dp"
+                app:layout_constraintBottom_toBottomOf="@+id/image_post"
+                app:layout_constraintEnd_toEndOf="@+id/image_post"
+                app:layout_constraintStart_toStartOf="@+id/image_post"
+                tools:ignore="SpUsage"
+                tools:text="imgur.com" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

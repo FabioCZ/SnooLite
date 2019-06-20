@@ -13,9 +13,10 @@ import com.gottlicher.snoolite.api.RedditPost
 
 class HomeViewModel(val redditApiService: RedditApiService) : ViewModel() {
 
-    val currentSub: ObservableField<String> = ObservableField("all")
+    val currentSub: ObservableField<String> = ObservableField("androiddev")
     lateinit var postsLiveData: LiveData<PagedList<RedditPost>>
     lateinit var stateLiveData: LiveData<DataState>
+    var initialized = false;
 
     fun initLiveData() {
         val factory = PostsDataFactory(redditApiService, currentSub.get()!!)
@@ -29,5 +30,6 @@ class HomeViewModel(val redditApiService: RedditApiService) : ViewModel() {
 
         stateLiveData = Transformations.switchMap(factory.mutableLiveData) { it.stateLiveData }
 
+        initialized = true
     }
 }
